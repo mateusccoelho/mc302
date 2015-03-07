@@ -40,17 +40,33 @@ public class Enquirer implements IEnquirer
 				String pergunta = decl.getPropriedade();
 				String respostaEsperada = decl.getValor();
 				
-				String resposta = responder.ask(pergunta);
+				int i;
+				boolean perguntaFeita = false;
+				for(i = 0; i < perguntasFeitas.size(); i++) {
+					if(perguntasFeitas.get(i).getPropriedade().equalsIgnoreCase(pergunta)) {
+						perguntaFeita = true;
+						break;
+					}
+				}
 				
-				perguntasFeitas.add(decl);
+				if(perguntaFeita) {
+					if(perguntasFeitas.get(i).getValor().equalsIgnoreCase(respostaEsperada))
+						decl = obj.proxima();
+					else
+						animalEsperado = false;
+				}
+				else {
+					String resposta = responder.ask(pergunta);
+					perguntasFeitas.add(decl);
+					if (resposta.equalsIgnoreCase(respostaEsperada))
+						decl = obj.proxima();
+					else
+						animalEsperado = false;
+				}
 				
-				if (resposta.equalsIgnoreCase(respostaEsperada))
-					decl = obj.proxima();
-				else
-					animalEsperado = false;
 			}
 			
-			if(animalEsperado == true) {
+			if(animalEsperado) {
 				acertei = responder.finalAnswer(listaAnimais[animal]);
 				break;
 			}

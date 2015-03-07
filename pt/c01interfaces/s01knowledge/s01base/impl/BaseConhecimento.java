@@ -12,7 +12,7 @@ import pt.c01interfaces.s01knowledge.s01base.inter.IObjetoConhecimento;
 
 public class BaseConhecimento implements IBaseConhecimento
 {
-	public static final String DIRETORIO_RAIZ = "C:/Users/Pedro Ono/Downloads/mc302/Git/pt/c01interfaces/s01knowledge/s02app/bd/",
+	public static final String DIRETORIO_RAIZ = "C:/Users/mateu_000/git/mc302/pt/c01interfaces/s01knowledge/s02app/bd/",
 	                           EXTENSAO = ".txt";
 	
     public String[] listaNomes()
