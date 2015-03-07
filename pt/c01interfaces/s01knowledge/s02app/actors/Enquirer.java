@@ -71,7 +71,7 @@ public class Enquirer implements IEnquirer
 				break;
 			}
 		}
-		System.out.println(perguntasFeitas);
+
 		if (acertei)
 			System.out.println("Oba! Acertei!");
 		else
