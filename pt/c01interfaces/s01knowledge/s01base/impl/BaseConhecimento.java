@@ -20,6 +20,7 @@ public class BaseConhecimento implements IBaseConhecimento
     {
     	File diretorioRaiz = new File(diretorio);
         
+    	
         String lista[] = diretorioRaiz.list();
         Vector<String> listaFiltrada = new Vector<String>();
         
