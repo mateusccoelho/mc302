@@ -12,7 +12,7 @@ import pt.c01interfaces.s01knowledge.s01base.inter.IObjetoConhecimento;
 
 public class BaseConhecimento implements IBaseConhecimento
 {
-	public static final String DIRETORIO_RELATIVO = "../../s02app/bd",
+	public static final String DIRETORIO_RELATIVO = "../../s02app/bd/",
 	                           EXTENSAO = ".txt";
 	String diretorio = BaseConhecimento.class.getResource(DIRETORIO_RELATIVO).getPath();
 	

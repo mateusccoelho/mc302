@@ -1,9 +1,6 @@
 package pt.c01interfaces.s01knowledge.s02app.actors;
 
 import pt.c01interfaces.s01knowledge.s01base.impl.BaseConhecimento;
-
-import pt.c01interfaces.s01knowledge.s01base.impl.Declaracao;
-import pt.c01interfaces.s01knowledge.s01base.impl.Statistics;
 import pt.c01interfaces.s01knowledge.s01base.inter.IBaseConhecimento;
 import pt.c01interfaces.s01knowledge.s01base.inter.IDeclaracao;
 import pt.c01interfaces.s01knowledge.s01base.inter.IEnquirer;
@@ -28,27 +25,37 @@ public class Enquirer implements IEnquirer
 		String listaAnimais[] = bc.listaNomes();
 		
 		ArrayList <IDeclaracao> perguntasFeitas = new ArrayList <IDeclaracao>();
-        
-		
+		// Procura por animal, o primeiro da lista eh o esperado
 		for (int animal = 0; animal < listaAnimais.length; animal++) {
 			
 			obj = bc.recuperaObjeto(listaAnimais[animal]);
 			IDeclaracao decl = obj.primeira();
 			
 			boolean animalEsperado = true;
+			// Faz todas as perguntas o animal ser encontrado
 			while (decl != null && animalEsperado) {
 				String pergunta = decl.getPropriedade();
 				String respostaEsperada = decl.getValor();
 				
 				int i;
 				boolean perguntaFeita = false;
+				// Ve se a pergunta nao foi feita antes
 				for(i = 0; i < perguntasFeitas.size(); i++) {
 					if(perguntasFeitas.get(i).getPropriedade().equalsIgnoreCase(pergunta)) {
 						perguntaFeita = true;
 						break;
 					}
 				}
-				
+				// Se ela ja foi feita, buscamos sua resposta
+				if(perguntaFeita) {
+					// Se eh a resposta certa passamos para proxima pergunta
+					if(perguntasFeitas.get(i).getValor().equalsIgnoreCase(respostaEsperada))
+						decl = obj.proxima();
+					// Se nao, esse nao eh o animal procurado
+					else
+						animalEsperado = false;
+				}
+				// Se ele nao foi feita ainda, salvamos ela em perguntas feitas
 				if(perguntaFeita) {
 					if(perguntasFeitas.get(i).getValor().equalsIgnoreCase(respostaEsperada))
 						decl = obj.proxima();
@@ -65,13 +72,12 @@ public class Enquirer implements IEnquirer
 				}
 				
 			}
-			
+			// Se acertamos todas as perguntas fazemos o questionamento final
 			if(animalEsperado) {
 				acertei = responder.finalAnswer(listaAnimais[animal]);
 				break;
 			}
 		}
-
 		if (acertei)
 			System.out.println("Oba! Acertei!");
 		else
