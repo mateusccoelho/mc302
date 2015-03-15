@@ -29,35 +29,42 @@ public class OrquestratorInit {
 			jogo = entrada.nextLine();
 		}
 		
-		if(jogo.equalsIgnoreCase("A")) {
-			base.setScenario("animals");
-			enq = new EnquirerAnimals();
-			String listaAnimais[] = base.listaNomes();
-			System.out.println("Digite o numero correspondente ao animal que deseja jogar.");
-			int i;
-			for(i = 0; i < listaAnimais.length; i++)
-				System.out.println(i + " - " + listaAnimais[i]);
-			i = entrada.nextInt();
-			System.out.println("Enquirer com " + listaAnimais[i] + "...");
-			resp = new ResponderAnimals(stat, listaAnimais[i]);
-			enq.connect(resp);
-			enq.discover();
+		switch (jogo.toUpperCase()) {
+			case "A": {
+				base.setScenario("animals");
+				enq = new EnquirerAnimals();
+				String listaAnimais[] = base.listaNomes();
+				System.out.println("Digite o numero correspondente ao animal que deseja jogar.");
+				int i;
+				for(i = 0; i < listaAnimais.length; i++)
+					System.out.println(i + " - " + listaAnimais[i]);
+				i = entrada.nextInt();
+				System.out.println("Enquirer com " + listaAnimais[i] + "...");
+				resp = new ResponderAnimals(stat, listaAnimais[i]);
+				enq.connect(resp);
+				enq.discover();
+				break;
+			}
+			
+			case "M": {
+				base.setScenario("maze");
+				enq = new EnquirerMaze();
+				String listaMapas[] = base.listaNomes();
+				System.out.println("Digite o numero correspondente ao labirinto que deseja jogar.");
+				int i;
+				for(i = 0; i < listaMapas.length; i++)
+					System.out.println(i + " - " + listaMapas[i]);
+				i = entrada.nextInt();
+				System.out.println("Enquirer com " + listaMapas[i] + "...");
+				resp = new ResponderMaze(stat, listaMapas[i]);
+				enq.connect(resp);
+				enq.discover();
+				break;
+			}
 		}
-		else {
-			base.setScenario("maze");
-			enq = new EnquirerMaze();
-			String listaMapas[] = base.listaNomes();
-			System.out.println("Digite o numero correspondente ao labirinto que deseja jogar.");
-			int i;
-			for(i = 0; i < listaMapas.length; i++)
-				System.out.println(i + " - " + listaMapas[i]);
-			i = entrada.nextInt();
-			System.out.println("Enquirer com " + listaMapas[i] + "...");
-			resp = new ResponderMaze(stat, listaMapas[i]);
-			enq.connect(resp);
-			enq.discover();
-		}
+		
 		System.out.println("----------------------------------------------------------------------------------------\n");
+		entrada.close();
 	}
 
 }
