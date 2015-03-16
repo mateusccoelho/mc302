@@ -16,12 +16,17 @@ public class EnquirerMaze implements IEnquirer {
 	public boolean discover() {
 		
 		char parede = 'D';
-		int i = 0;
 		
-		while(!responder.ask("aqui").equalsIgnoreCase("saida") && i < 20) {
-			i++;
+		while(!responder.ask("aqui").equalsIgnoreCase("saida")) {
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			if(parede == 'D') {
-				if(responder.ask("leste").equalsIgnoreCase("parede") && responder.ask("norte").equalsIgnoreCase("passagem")) {
+				if((responder.ask("leste").equalsIgnoreCase("parede") && responder.ask("norte").equalsIgnoreCase("passagem")) || responder.ask("norte").equalsIgnoreCase("saida")) {
 					responder.move("norte");
 					System.out.println("Andei Norte");
 				}
@@ -39,11 +44,9 @@ public class EnquirerMaze implements IEnquirer {
 					responder.move("sul");
 					parede = 'E';
 				}
-				else if (responder.ask("norte").equalsIgnoreCase("saida"))
-					responder.move("norte");
 			}
 			else if(parede == 'E') {
-				if(responder.ask("oeste").equalsIgnoreCase("parede") && responder.ask("sul").equalsIgnoreCase("passagem")) {
+				if((responder.ask("oeste").equalsIgnoreCase("parede") && responder.ask("sul").equalsIgnoreCase("passagem")) || responder.ask("sul").equalsIgnoreCase("saida")) {
 					System.out.println("Andei Sul");
 					responder.move("sul");
 				}
@@ -62,11 +65,9 @@ public class EnquirerMaze implements IEnquirer {
 					System.out.println("Andei Norte");
 					parede = 'D';
 				}
-				else if (responder.ask("sul").equalsIgnoreCase("saida"))
-					responder.move("sul");
 			}
 			else if(parede == 'B') {
-				if(responder.ask("sul").equalsIgnoreCase("parede") && responder.ask("leste").equalsIgnoreCase("passagem")) {
+				if((responder.ask("sul").equalsIgnoreCase("parede") && responder.ask("leste").equalsIgnoreCase("passagem")) || responder.ask("leste").equalsIgnoreCase("saida")) {
 					responder.move("leste");
 					System.out.println("Andei Leste");
 				}
@@ -85,11 +86,9 @@ public class EnquirerMaze implements IEnquirer {
 					System.out.println("Andei Oeste");
 					parede = 'A';
 				}
-				else if (responder.ask("leste").equalsIgnoreCase("saida"))
-						responder.move("leste");
 			}
 			else if(parede == 'A') {
-				if(responder.ask("norte").equalsIgnoreCase("parede") && responder.ask("oeste").equalsIgnoreCase("passagem")) {
+				if((responder.ask("norte").equalsIgnoreCase("parede") && responder.ask("oeste").equalsIgnoreCase("passagem")) || responder.ask("oeste").equalsIgnoreCase("saida")) {
 					responder.move("oeste");
 					System.out.println("Andei Oeste");
 				}
@@ -108,8 +107,6 @@ public class EnquirerMaze implements IEnquirer {
 					System.out.println("Andei Leste");
 					parede = 'B';
 				}
-				else if (responder.ask("oeste").equalsIgnoreCase("saida"))
-					responder.move("oeste");
 			}
 		}
 		
