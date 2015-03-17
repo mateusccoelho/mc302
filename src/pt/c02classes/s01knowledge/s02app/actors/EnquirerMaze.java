@@ -17,7 +17,12 @@ public class EnquirerMaze implements IEnquirer {
 		
 		char parede = ' ';
 		
-		if (responder.ask("norte").equalsIgnoreCase("passagem")) 
+		if (responder.ask("norte").equalsIgnoreCase("passagem")&&responder.ask("sul").equalsIgnoreCase("passagem")&&responder.ask("leste").equalsIgnoreCase("passagem")&&responder.ask("oeste").equalsIgnoreCase("passagem")){
+			while (responder.ask("leste").equalsIgnoreCase("passagem"))
+				responder.move("leste");
+			parede = 'D';
+		}
+		else if (responder.ask("norte").equalsIgnoreCase("passagem")) 
 			parede = 'D';
 		else if (responder.ask("sul").equalsIgnoreCase("passagem"))
 			parede = 'E';
@@ -25,17 +30,9 @@ public class EnquirerMaze implements IEnquirer {
 			parede = 'B';
 		else if (responder.ask("oeste").equalsIgnoreCase("passagem"))
 			parede = 'A';
-				 
-		
-		
+			
 		
 		while(!responder.ask("aqui").equalsIgnoreCase("saida")) {
-			try {
-				Thread.sleep(00);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
 			if (responder.ask("leste").equalsIgnoreCase("saida"))
 				responder.move("leste");
@@ -47,94 +44,79 @@ public class EnquirerMaze implements IEnquirer {
 				responder.move("sul");
 
 			else if(parede == 'D') {
-				if (responder.ask("leste").equalsIgnoreCase("parede") && responder.ask("norte").equalsIgnoreCase("passagem")) {
+				if ((responder.ask("leste").equalsIgnoreCase("parede") || responder.ask("leste").equalsIgnoreCase("mundo")) && responder.ask("norte").equalsIgnoreCase("passagem")) {
 					responder.move("norte");
-					System.out.println("Andei Norte");
 				}
 				else if(responder.ask("leste").equalsIgnoreCase("passagem")) {
 					responder.move("leste");
-					System.out.println("Andei Leste");
 					parede = 'B';
 				}
 				else if(responder.ask("oeste").equalsIgnoreCase("passagem")) {
 					responder.move("oeste");
-					System.out.println("Andei Oeste");
 					parede = 'A';
 				}
-				else if (responder.ask("leste").equalsIgnoreCase("parede") && responder.ask("norte").equalsIgnoreCase("parede") && responder.ask("oeste").equalsIgnoreCase("parede")){
+				else if ((responder.ask("leste").equalsIgnoreCase("parede") || responder.ask("leste").equalsIgnoreCase("mundo")) && (responder.ask("norte").equalsIgnoreCase("parede") || responder.ask("norte").equalsIgnoreCase("mundo")) && (responder.ask("oeste").equalsIgnoreCase("parede") || responder.ask("oeste").equalsIgnoreCase("mundo"))){
 					responder.move("sul");
 					parede = 'E';
 				}
 			}
 			else if(parede == 'E') {
-				if (responder.ask("oeste").equalsIgnoreCase("parede") && responder.ask("sul").equalsIgnoreCase("passagem")) {
-					System.out.println("Andei Sul");
+				if ((responder.ask("oeste").equalsIgnoreCase("parede") || responder.ask("leste").equalsIgnoreCase("mundo")) && responder.ask("sul").equalsIgnoreCase("passagem")) {
 					responder.move("sul");
 				}
 				else if(responder.ask("oeste").equalsIgnoreCase("passagem")) {
-					System.out.println("Andei Oeste");
 					responder.move("oeste");
 					parede = 'A';
 				}
 				else if(responder.ask("leste").equalsIgnoreCase("passagem")) {
 					responder.move("leste");
-					System.out.println("Andei Leste");
 					parede = 'B';
 				}
-				else if (responder.ask("sul").equalsIgnoreCase("parede") && responder.ask("leste").equalsIgnoreCase("parede") && responder.ask("oeste").equalsIgnoreCase("parede")){
+				else if ((responder.ask("sul").equalsIgnoreCase("parede") || responder.ask("sul").equalsIgnoreCase("mundo")) && (responder.ask("leste").equalsIgnoreCase("parede") || responder.ask("leste").equalsIgnoreCase("mundo")) && (responder.ask("oeste").equalsIgnoreCase("parede") || responder.ask("oeste").equalsIgnoreCase("mundo"))){
 					responder.move("norte");
-					System.out.println("Andei Norte");
 					parede = 'D';
 				}
 			}
 			else if(parede == 'B') {
-				if (responder.ask("sul").equalsIgnoreCase("parede") && responder.ask("leste").equalsIgnoreCase("passagem")) {
+				if ((responder.ask("sul").equalsIgnoreCase("parede") || responder.ask("sul").equalsIgnoreCase("mundo")) && responder.ask("leste").equalsIgnoreCase("passagem")) {
 					responder.move("leste");
-					System.out.println("Andei Leste");
 				}
 				else if(responder.ask("sul").equalsIgnoreCase("passagem")) {
 					responder.move("sul");
-					System.out.println("Andei Sul");
 					parede = 'E';
 				}
 				else if(responder.ask("norte").equalsIgnoreCase("passagem")) {
 					responder.move("norte");
-					System.out.println("Andei Norte");
 					parede = 'D';
 				}
-				else if (responder.ask("sul").equalsIgnoreCase("parede") && responder.ask("leste").equalsIgnoreCase("parede") && responder.ask("norte").equalsIgnoreCase("parede")) {
+				else if ((responder.ask("sul").equalsIgnoreCase("parede")|| responder.ask("sul").equalsIgnoreCase("mundo")) && (responder.ask("leste").equalsIgnoreCase("parede")|| responder.ask("leste").equalsIgnoreCase("mundo")) && (responder.ask("norte").equalsIgnoreCase("parede")|| responder.ask("norte").equalsIgnoreCase("mundo"))) {
 					responder.move("oeste");
-					System.out.println("Andei Oeste");
 					parede = 'A';
 				}
 			}
 			else if(parede == 'A') {
-				if (responder.ask("norte").equalsIgnoreCase("parede") && responder.ask("oeste").equalsIgnoreCase("passagem")) {
+				if ((responder.ask("norte").equalsIgnoreCase("parede")|| responder.ask("norte").equalsIgnoreCase("mundo")) && responder.ask("oeste").equalsIgnoreCase("passagem")) {
 					responder.move("oeste");
-					System.out.println("Andei Oeste");
 				}
 				else if(responder.ask("norte").equalsIgnoreCase("passagem")) {
 					responder.move("norte");
-					System.out.println("Andei Norte");
 					parede = 'D';
 				}
 				else if(responder.ask("sul").equalsIgnoreCase("passagem")) {
 					responder.move("sul");
-					System.out.println("Andei Sul");
 					parede = 'E';
 				}
-				else if (responder.ask("sul").equalsIgnoreCase("parede") && responder.ask("norte").equalsIgnoreCase("parede") && responder.ask("oeste").equalsIgnoreCase("parede")){
+				else if ((responder.ask("sul").equalsIgnoreCase("parede")|| responder.ask("sul").equalsIgnoreCase("mundo")) && (responder.ask("norte").equalsIgnoreCase("parede")|| responder.ask("norte").equalsIgnoreCase("mundo")) && (responder.ask("oeste").equalsIgnoreCase("parede")|| responder.ask("oeste").equalsIgnoreCase("mundo"))){
 					responder.move("leste");
-					System.out.println("Andei Leste");
 					parede = 'B';
 				}
 			}
 		}
 		
 		if (responder.finalAnswer("cheguei"))
-			System.out.println("Você encontrou a saida!");
+			System.out.println("Vocï¿½ encontrou a saida!");
 		else
-			System.out.println("Fuém fuém fuém!");
+			System.out.println("Fuï¿½m fuï¿½m fuï¿½m!");
 		
 
 		return true;
